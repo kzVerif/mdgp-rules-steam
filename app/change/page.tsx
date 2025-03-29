@@ -1,6 +1,8 @@
+"use client"
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from "next/image";
+import { useState } from 'react';
 
 const stepsChangeEmail = [
   'กดที่คำว่า "Steam" ทางมุมบนซ้ายแล้วเลือก "การตั้งค่า"',
@@ -19,26 +21,41 @@ const stepsChangePassword = [
   'ใส่รหัสผ่านใหม่ที่ลูกค้าต้องการตั้ง ลงทั้ง 2 ช่องแล้วกด "เปลี่ยนรหัสผ่าน"',
 ];
 
+const StepCard = ({ step, index, imageName }: { step: string; index: number; imageName: string }) => {
+  const [showImage, setShowImage] = useState(false);
+
+  return (
+    <div className="bg-white p-6 rounded-xl shadow-md dark:bg-gray-800">
+      <h3 className="text-lg font-semibold text-gray-800 dark:text-white">{step}</h3>
+      <button 
+        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+        onClick={() => setShowImage(!showImage)}
+      >
+        {showImage ? 'ซ่อนรูป' : 'ดูรูป'}
+      </button>
+      {showImage && (
+        <div className="mt-4">
+          <Image src={`/email${index + 1}.png`} alt={`step-${index + 1}`} width={500} height={250} />
+        </div>
+      )}
+    </div>
+  );
+};
+
 const StepList = ({ steps }: { steps: string[] }) => (
-  <ol className="list-decimal list-inside space-y-2">
+  <div className="space-y-6">
     {steps.map((step, index) => (
-      <li key={index} className="bg-gray-100 p-3 rounded-md shadow-sm text-gray-800 dark:bg-gray-800 dark:text-white">
-        {step}
-        <Image src={`/email${index+1}.png`} alt={"logo"} width={300} height={300} />
-      </li>
+      <StepCard key={index} step={step} index={index} imageName={`email${index + 1}`} />
     ))}
-  </ol>
+  </div>
 );
 
 const StepListPassword = ({ steps }: { steps: string[] }) => (
-  <ol className="list-decimal list-inside space-y-2">
+  <div className="space-y-6">
     {steps.map((step, index) => (
-      <li key={index} className="bg-gray-100 p-3 rounded-md shadow-sm text-gray-800 dark:bg-gray-800 dark:text-white">
-        {step}
-        <Image src={`/pass${index+1}.png`} alt={"logo"} width={300} height={300} />
-      </li>
+      <StepCard key={index} step={step} index={index} imageName={`pass${index + 1}`} />
     ))}
-  </ol>
+  </div>
 );
 
 export default function SteamAccountSettings() {
