@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from "next/image";
 
 const stepsChangeEmail = [
   'กดที่คำว่า "Steam" ทางมุมบนซ้ายแล้วเลือก "การตั้งค่า"',
@@ -23,6 +24,18 @@ const StepList = ({ steps }: { steps: string[] }) => (
     {steps.map((step, index) => (
       <li key={index} className="bg-gray-100 p-3 rounded-md shadow-sm text-gray-800 dark:bg-gray-800 dark:text-white">
         {step}
+        <Image src={`/email${index+1}.png`} alt={"logo"} width={300} height={300} />
+      </li>
+    ))}
+  </ol>
+);
+
+const StepListPassword = ({ steps }: { steps: string[] }) => (
+  <ol className="list-decimal list-inside space-y-2">
+    {steps.map((step, index) => (
+      <li key={index} className="bg-gray-100 p-3 rounded-md shadow-sm text-gray-800 dark:bg-gray-800 dark:text-white">
+        {step}
+        <Image src={`/pass${index+1}.png`} alt={"logo"} width={300} height={300} />
       </li>
     ))}
   </ol>
@@ -36,16 +49,16 @@ export default function SteamAccountSettings() {
         <meta name="description" content="คำแนะนำในการเปลี่ยนอีเมลและรหัสผ่านสำหรับบัญชี Steam" />
       </Head>
       <main className="w-full max-w-3xl bg-white p-8 rounded-xl shadow-lg dark:bg-gray-800">
-        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">วิธีเปลี่ยนอีเมลและรหัสผ่าน Steam</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white underline">วิธีเปลี่ยนอีเมลและรหัสผ่าน Steam</h1>
 
         <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">วิธีเปลี่ยนอีเมล</h2>
+          <h2 className="text-3xl font-semibold mb-4 text-gray-700 dark:text-gray-300 underline">วิธีเปลี่ยนอีเมล</h2>
           <StepList steps={stepsChangeEmail} />
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">วิธีเปลี่ยนรหัสผ่าน Steam</h2>
-          <StepList steps={stepsChangePassword} />
+          <h2 className="text-3xl font-semibold mb-4 text-gray-700 dark:text-gray-300 underline">วิธีเปลี่ยนรหัสผ่าน Steam</h2>
+          <StepListPassword steps={stepsChangePassword} />
         </section>
       </main>
       
