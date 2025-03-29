@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+//hello
 export default function Home() {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-50 dark:bg-gray-900">
